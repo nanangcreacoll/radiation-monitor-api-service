@@ -45,3 +45,6 @@ class App:
             port=self.port,
             log_level=self.__log_level.lower()
         )
+
+        server = uvicorn.Server(config)
+        await server.serve()
