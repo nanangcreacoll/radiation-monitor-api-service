@@ -38,7 +38,7 @@ model main_monitor_data {
   humidity    Float
   dose_rate   Float
   created_at  DateTime @default(now())
-  user        users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user        users    @relation(fields: [user_id], references: [id])
 
   @@map("main_monitor_data")
 }

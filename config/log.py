@@ -17,6 +17,7 @@ class Log:
 
         self.__setup_logging()
         self.__suppress_httpx_logs()
+        self.__surpress_wathchfiles_logs()
 
     def __get_log_level(self):
         level = self.__log_level.upper()
@@ -51,6 +52,11 @@ class Log:
         httpx_logger = logging.getLogger("httpx")
         httpx_logger.setLevel(logging.WARNING)
         httpx_logger.propagate = False
+
+    def __surpress_wathchfiles_logs(self):
+        watchfiles_logger = logging.getLogger("watchfiles")
+        watchfiles_logger.setLevel(logging.WARNING)
+        watchfiles_logger.propagate = False
 
     def get_logger(self, name):
         return logging.getLogger(name)

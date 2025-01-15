@@ -1,10 +1,12 @@
 from fastapi import FastAPI
-from config.app import App
-from config.log import Log
 import os
 from dotenv import load_dotenv
 from prisma import Prisma
 from contextlib import asynccontextmanager
+
+from config.app import App
+from config.log import Log
+from routers import root_router
 
 load_dotenv(override=True)
 
@@ -32,6 +34,8 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-@app.get("/")
-async def read_root():
-    return {"data": "Hello World"}
+app.include_router(
+    router=root_router,
+    tags=["root"],
+    include_in_schema=False
+)

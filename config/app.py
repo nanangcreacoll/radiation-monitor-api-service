@@ -23,7 +23,7 @@ class App:
     def run(self):
         import uvicorn
         
-        logger.info(f"Running {self.title} v{self.version} on {self.host}:{self.port}")
+        logger.info(f"Running {self.title} app version {self.version} on {self.host}:{self.port}")
 
         uvicorn.run(
             app="app:app",
@@ -31,18 +31,20 @@ class App:
             port=self.port,
             reload=self.__reload,
             reload_delay=1,
+            log_config=None,
             log_level=self.__log_level.lower()
         )
 
     async def serve(self):
         import uvicorn
 
-        logger.info(f"Serving {self.title} v{self.version} on {self.host}:{self.port}")
+        logger.info(f"Serving {self.title} app version {self.version} on {self.host}:{self.port}")
 
         config = uvicorn.Config(
             app="app:app",
             host=self.host,
             port=self.port,
+            log_config=None,
             log_level=self.__log_level.lower()
         )
 
