@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 from config.app import App
 from config.log import Log
 from routers import root_router
+from routers import user_router
 
 load_dotenv(override=True)
 
@@ -38,4 +39,10 @@ app.include_router(
     router=root_router,
     tags=["root"],
     include_in_schema=False
+)
+
+app.include_router(
+    router=user_router,
+    prefix=config.prefix,
+    tags=["user"]
 )

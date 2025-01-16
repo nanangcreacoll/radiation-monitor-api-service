@@ -2,9 +2,10 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-class User(BaseModel):
+class PersonalAccessToken(BaseModel):
     id: int
-    username: str
-    password: str
+    user_id: int
+    token: str
     created_at: str
+    last_used_at: Optional[str] = None
     updated_at: Optional[str] = None
