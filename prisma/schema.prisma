@@ -20,13 +20,13 @@ model users {
 }
 
 model personal_access_tokens {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   user_id    Int
   token      String
-  last_used  DateTime
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  user       users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  last_used  DateTime?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  user       users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("personal_access_tokens")
 }
@@ -34,9 +34,9 @@ model personal_access_tokens {
 model main_monitor_data {
   id          Int      @id @default(autoincrement())
   user_id     Int
-  temperature Float
-  humidity    Float
-  dose_rate   Float
+  temperature Float?
+  humidity    Float?
+  dose_rate   Float?
   created_at  DateTime @default(now())
   user        users    @relation(fields: [user_id], references: [id])
 

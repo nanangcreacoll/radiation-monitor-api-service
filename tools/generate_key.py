@@ -2,7 +2,7 @@ import os
 import secrets
 
 
-class EnvKeyGenerator:
+class AppKeyGenerator:
     def __init__(self, env_file=".env"):
         script_dir = os.path.dirname(os.path.abspath(__file__))
         parent_dir = os.path.dirname(script_dir)
@@ -39,8 +39,8 @@ class EnvKeyGenerator:
 
 
 if __name__ == "__main__":
-    env_generator = EnvKeyGenerator()
+    app_key_generator = AppKeyGenerator()
     try:
-        env_generator.update_env_key()
+        app_key_generator.update_env_key()
     except FileNotFoundError as e:
         print(e)

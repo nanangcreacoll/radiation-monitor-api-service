@@ -5,7 +5,7 @@ re_username = re.compile(r"^[a-zA-Z0-9]+$")
 re_password = re.compile(r"^[a-zA-Z0-9]+$")
 
 
-class UserLogin(BaseModel):
+class UserLoginRequest(BaseModel):
     username: str = Field(..., description="Username of the user", max_length=255)
     password: str = Field(..., description="Password of the user", max_length=255)
 
@@ -26,7 +26,7 @@ class UserLogin(BaseModel):
         return value
 
 
-class UserRegister(BaseModel):
+class UserRegisterRequest(BaseModel):
     username: str = Field(..., description="Username of the user", max_length=255)
     password: str = Field(..., description="Password of the user", max_length=255)
 
