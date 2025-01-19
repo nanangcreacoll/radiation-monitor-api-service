@@ -20,13 +20,13 @@ model users {
 }
 
 model personal_access_tokens {
-  id         Int       @id @default(autoincrement())
-  user_id    Int
-  token      String
-  last_used  DateTime?
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  user       users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  id           Int       @id @default(autoincrement())
+  user_id      Int
+  token        String    @unique
+  last_used_at DateTime?
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  user         users     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("personal_access_tokens")
 }

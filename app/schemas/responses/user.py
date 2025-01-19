@@ -1,4 +1,13 @@
 from pydantic import BaseModel, Field
+from typing import Optional
+import datetime
+
+
+class User(BaseModel):
+    id: int
+    username: str
+    created_at: datetime.datetime
+    updated_at: Optional[datetime.datetime] = None
 
 
 class UserLoginResponse(BaseModel):

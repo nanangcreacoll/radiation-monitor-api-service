@@ -1,12 +1,14 @@
 from config.log import Log
 from app.services.user import UserService
-from app.models.user import User
+from app.schemas.responses.user import User
 from app.schemas.requests.user import UserRegisterRequest
 from app.schemas.requests.user import UserLoginRequest
 from app.schemas.responses.user import UserRegisterResponse
 from app.schemas.responses.user import UserLoginResponse
 
-from fastapi import HTTPException
+from fastapi import HTTPException, Depends
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from typing import Annotated
 
 logger = Log().get_logger(__name__)
 
@@ -30,6 +32,36 @@ class UserController:
             logger.info(f"register: {e}")
             raise e
 
-        except Exception as e:
-            logger.error(f"register: {e}")
-            raise HTTPException(status_code=500, detail="Internal server error")
+    async def login(self, user: UserLoginRequest) -> UserLoginResponse:
+        logger.info(f"login: {user}")
+
+        try:
+            user_logged = await self.__user_service.login(user)
+
+            return UserLoginResponse(
+                type="bearer",
+                token=user_logged.token,
+            )
+
+        except HTTPException as e:
+            logger.info(f"login: {e}")
+            raise e
+
+    async def get(
+        self, token: Annotated[HTTPAuthorizationCredentials, Depends(HTTPBearer)]
+    ) -> User:
+        logger.info(f"get user: {token}")
+
+        try:
+            user = await self.__user_service.get(token.credentials)
+
+            return User(
+                id=user.id,
+                username=user.username,
+                created_at=user.created_at,
+                updated_at=user.updated_at,
+            )
+
+        except HTTPException as e:
+            logger.info(f"get: {e}")
+            raise e

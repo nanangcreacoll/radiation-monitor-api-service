@@ -13,7 +13,7 @@ class UserLoginRequest(BaseModel):
     def validate_username(cls, value):
         if not re_username.fullmatch(value):
             raise ValueError(
-                "Username must contain only alphabets and numbers without spaces."
+                "Username must contain only alphabets and numbers without spaces"
             )
         return value
 
@@ -21,7 +21,7 @@ class UserLoginRequest(BaseModel):
     def validate_password(cls, value):
         if not re_password.fullmatch(value):
             raise ValueError(
-                "Password must contain only alphabets and numbers without spaces."
+                "Password must contain only alphabets and numbers without spaces"
             )
         return value
 
@@ -34,7 +34,7 @@ class UserRegisterRequest(BaseModel):
     def validate_username(cls, value):
         if not re_username.fullmatch(value):
             raise ValueError(
-                "Username must contain only alphabets and numbers without spaces."
+                "Username must contain only alphabets and numbers without spaces"
             )
         return value
 
@@ -42,6 +42,6 @@ class UserRegisterRequest(BaseModel):
     def validate_password(cls, value):
         if not re_password.fullmatch(value):
             raise ValueError(
-                "Password must contain only alphabets and numbers without spaces."
+                "Password must contain only alphabets and numbers without spaces"
             )
         return value
