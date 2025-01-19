@@ -82,9 +82,13 @@ class UserService:
         personal_access_token = await self.__personal_access_token_service.get(token)
 
         user = await self.__user_repository.get_by_id(personal_access_token.user_id)
+        
+        if not user:
+            logger.info(f"get: user not found: {personal_access_token.user_id}")
+            raise HTTPException(status_code=400, detail="User not found")
 
         personal_access_token = await self.__personal_access_token_service.last_used_at(
-            user.id, token
+            token
         )
 
         return User(

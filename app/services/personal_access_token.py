@@ -1,4 +1,3 @@
-from prisma.models import personal_access_tokens
 from app.repositories.personal_access_token import PersonalAccessTokenRepository
 from app.models.user import User
 from app.models.personal_access_token import PersonalAccessToken
@@ -102,9 +101,7 @@ class PersonalAccessTokenService:
             updated_at=personal_access_token.updated_at,
         )
 
-    async def last_used_at(self, user_id: int, token: str):
-        logger.info(f"last_used_at: {user_id}, {token}")
+    async def last_used_at(self, token: str):
+        logger.info(f"last_used_at: {token}")
 
-        return await self.__personal_access_token_repository.last_used_at(
-            user_id, token
-        )
+        return await self.__personal_access_token_repository.last_used_at(token)

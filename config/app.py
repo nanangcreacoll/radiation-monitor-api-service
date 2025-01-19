@@ -1,10 +1,10 @@
 from .log import Log
 from dotenv import load_dotenv
 import os
-import json
 
 load_dotenv(override=True)
 logger = Log().get_logger(__name__)
+
 
 class App:
     def __init__(self):
@@ -18,12 +18,14 @@ class App:
         self.openapi_url = os.getenv("APP_OPENAPI_URL", "/api/openapi.json")
 
         self.__log_level = os.getenv("APP_LOG_LEVEL", "INFO")
-        self.__reload = os.getenv("APP_RELOAD", False)
+        self.__reload = bool(os.getenv("APP_RELOAD", False))
 
     def run(self):
         import uvicorn
-        
-        logger.info(f"Running {self.title} app version {self.version} on {self.host}:{self.port}")
+
+        logger.info(
+            f"Running {self.title} app version {self.version} on {self.host}:{self.port}"
+        )
 
         uvicorn.run(
             app="app:app",
@@ -32,20 +34,22 @@ class App:
             reload=self.__reload,
             reload_delay=1,
             log_config=None,
-            log_level=self.__log_level.lower()
+            log_level=self.__log_level.lower(),
         )
 
     async def serve(self):
         import uvicorn
 
-        logger.info(f"Serving {self.title} app version {self.version} on {self.host}:{self.port}")
+        logger.info(
+            f"Serving {self.title} app version {self.version} on {self.host}:{self.port}"
+        )
 
         config = uvicorn.Config(
             app="app:app",
             host=self.host,
             port=self.port,
             log_config=None,
-            log_level=self.__log_level.lower()
+            log_level=self.__log_level.lower(),
         )
 
         server = uvicorn.Server(config)

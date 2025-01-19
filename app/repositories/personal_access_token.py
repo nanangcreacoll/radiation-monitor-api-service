@@ -19,8 +19,8 @@ class PersonalAccessTokenRepository:
             where={"token": token}
         )
 
-    async def last_used_at(self, user_id: int, token: str):
+    async def last_used_at(self, token: str):
         return await self.__prisma.personal_access_tokens.update(
-            where={"user_id": user_id, "token": token},
+            where={"token": token},
             data={"last_used_at": datetime.datetime.now(datetime.timezone.utc)},
         )
