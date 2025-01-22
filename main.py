@@ -1,7 +1,19 @@
-from fastapi import FastAPI
+from dotenv import load_dotenv
+import os
+import asyncio
 
-app = FastAPI()
+load_dotenv(override=True)
 
-@app.get("/")
-async def read_root():
-    return {"data": "Hello World"}
+if __name__ == "__main__":
+    from config.app import App
+    from config.log import Log
+
+    logger = Log().get_logger(__name__)
+    config = App()
+
+    if os.getenv("NODE_ENV") == "development":
+        logger.info("Running application in development")
+        config.run()
+    elif os.getenv("NODE_ENV") == "production":
+        logger.info("Running application in production")
+        asyncio.run(config.serve())
