@@ -4,10 +4,14 @@ import datetime
 
 
 class User(BaseModel):
-    id: int
-    username: str
-    created_at: datetime.datetime
-    updated_at: Optional[datetime.datetime] = None
+    id: int = Field(..., description="ID of the user")
+    username: str = Field(..., description="Username of the user")
+    created_at: datetime.datetime = Field(
+        ..., description="Date and time of user creation"
+    )
+    updated_at: Optional[datetime.datetime] = Field(
+        None, description="Date and time of user update"
+    )
 
 
 class UserLoginResponse(BaseModel):

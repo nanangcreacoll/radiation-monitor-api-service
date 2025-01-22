@@ -68,12 +68,6 @@ class PersonalAccessTokenService:
             algorithms=self.__algorithm,
         )
 
-        logger.info(f"decoded exp: {decoded['exp']}")
-        logger.info(
-            f"now: {int(datetime.datetime.now(datetime.timezone.utc).timestamp())}"
-        )
-        logger.info(f"created_at: {int(personal_access_token.created_at.timestamp())}")
-
         sys.set_int_max_str_digits(65535)
         if (
             decoded["exp"]
